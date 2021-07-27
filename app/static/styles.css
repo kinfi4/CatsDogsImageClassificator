@@ -1,0 +1,19 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, serif;
+
+    display: flex;
+}
+.app-wrapper{
+    padding: 100px;
+    width: 100%;
+    background-image: linear-gradient(to top, rgb(255, 255, 255), rgb(198, 198, 198));
+}
+h2.title{
+    margin: auto;
+    text-wrap: normal;
+    text-align: center;
+}
