@@ -11,7 +11,7 @@ def preprocess_image(image: Image, target_size=(224, 224)):
     if image.mode != 'RGB':
         image = image.convert('RGB')
 
-    image.resize(target_size)
+    image = image.resize(target_size)
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
 
@@ -20,6 +20,7 @@ def preprocess_image(image: Image, target_size=(224, 224)):
 
 def predict_image(image):
     preprocessed_image = preprocess_image(image)
+    print(preprocessed_image.shape)
     prediction = model.predict(preprocessed_image).tolist()
 
-    return {'dog': prediction[0][0], 'cat': prediction[0][1]}
+    return {'dog': prediction[0][1], 'cat': prediction[0][0]}

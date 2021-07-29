@@ -10,8 +10,9 @@ imageInput.addEventListener('input', ev => {
 
     fileReader.onload = ev => {
         if(fileReader.readyState === 2){
+            let dataUrl = fileReader.result
             imagePreview.style.backgroundImage = `url(${fileReader.result})`
-            store.image = image
+            store.image = dataUrl.replace('data:image/jpeg;base64,', '')
         }
     }
 
@@ -20,22 +21,27 @@ imageInput.addEventListener('input', ev => {
     } catch (ex) {}
 })
 
+function showPredictionResults(results) {
+    const catLabel = document.querySelector('#percentage-cat')
+    const dogLabel = document.querySelector('#percentage-dog')
+
+    catLabel.textContent = `Cat: ${Number(results.cat).toFixed(2)}`
+    dogLabel.textContent = `Dog: ${Number(results.dog).toFixed(2)}`
+}
+
 function sendImage() {
     if(store.image === null){
         alert('Cant predict, because you did not select the image')
     }
     else{
-        let data = new FormData()
-        data.append('image', store.image, store.image.name)
-
         fetch('http://127.0.0.1:5000/predict', {
             method: 'POST',
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             },
-            body: data
+            body: JSON.stringify({image: store.image})
         }).then(res => res.json())
-          .then(res => console.log(res))
+          .then(res => showPredictionResults(res))
     }
 }
 

@@ -15,7 +15,13 @@
             <label for="preview_image" class="image-preview-label">Select image</label>
         </div>
 
-        <div class="button">Predict</div>
+        <div style="display: flex; justify-content: space-between;">
+            <div class="button">Predict</div>
+            <div class="prediction">
+                <span id="percentage-cat">Cat:</span> <br>
+                <span id="percentage-dog">Dog:</span>
+            </div>
+        </div>
     </div>
 
     <script src="../static/scripts.js"></script>

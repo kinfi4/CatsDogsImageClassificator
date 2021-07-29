@@ -1,3 +1,7 @@
+import base64
+import io
+
+from PIL import Image
 from flask import render_template, request, jsonify
 from flask.views import MethodView
 
@@ -12,10 +16,13 @@ class MainPageView(MethodView):
 
 class ImagePredictView(MethodView):
     def post(self):
-        uploaded_image = request.files['image']
-        print(uploaded_image)
+        image_encoded = request.get_json(force=True)['image']
+        image_decoded = base64.b64decode(image_encoded)
+        image = Image.open(io.BytesIO(image_decoded))
+        prediction = predict_image(image)
+        print('Made prediction,', prediction)
 
-        return jsonify({'response': 'ok'})
+        return jsonify(prediction)
 
 
 app.add_url_rule('/', view_func=MainPageView.as_view('main_page'), methods=('GET', ))

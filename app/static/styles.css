@@ -78,3 +78,7 @@ h2.title{
 .button:hover{
     color: red;
 }
+.prediction{
+    font-size: 25px;
+    font-weight: 700;
+}
