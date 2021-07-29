@@ -19,4 +19,4 @@ class ImagePredictView(MethodView):
 
 
 app.add_url_rule('/', view_func=MainPageView.as_view('main_page'), methods=('GET', ))
-app.add_url_rule('/predict', view_func=MainPageView.as_view('predict'), methods=('POST', ))
+app.add_url_rule('/predict', view_func=ImagePredictView.as_view('predict'), methods=('POST', ))
